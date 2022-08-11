@@ -2,12 +2,12 @@ import requests, json
 from secrets import TOKEN
 from requests.structures import CaseInsensitiveDict
 
-GET_REPOS = 'https://api.github.com/search/repositories?q=user:Xisurthros'
+GET_REPOS = 'https://api.github.com/search/repositories?q=user:'
 MAKE_REPOS = 'https://api.github.com/user/repos'
 
 def get_repos():
 	
-	resp = requests.get(GET_REPOS, headers=headers)
+	resp = requests.get(f'{GET_REPOS}{USERNAME}', headers=headers)
 	data = resp.json()
 	for item in data['items']:
 		repo_info = {
@@ -53,6 +53,7 @@ def main():
 			make_repo()
 
 if __name__ == '__main__':
+	USERNAME = input('Set Username: ')
 	headers = {
 		'Authorization': f'token {TOKEN}',
 		'Content-Type': 'application/x-www-form-urlencoded',
